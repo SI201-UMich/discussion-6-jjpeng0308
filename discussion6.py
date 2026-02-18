@@ -58,7 +58,15 @@ class HorseRaces:
             EXAMPLE: {'Special Week': {'Tenno Sho Fall': 16.5, 'Tenno Sho Spring': 16.3, 'Teio Sho': 17.0}}
         '''
         pass
-
+        header = table[0]
+        race_dict = {}
+        for row in table[1:]:
+            horse_races = {}
+            horse_name = row[0]
+            for i in range(len(row[1:])):
+                horse_races[header[i + 1]] = float(row[i + 1])
+            race_dict[horse_name] = horse_races
+        return race_dict
 ###############################################################################
 ##### TASK 2
 ###############################################################################
@@ -76,6 +84,18 @@ class HorseRaces:
             EXAMPLE: ('Teio Sho', 14.8)
         '''
         pass
+        if horse not in self.race_dict:
+            return None, 999.9
+        
+        horse_races = self.race_dict[horse]
+        fastest_race = None
+        fastest_time = 999.9
+
+        for race, time in horse_races.items():
+            if time < fastest_time:
+                fastest_time = time
+                fastest_race = race
+        return fastest_race, fastest_time
 
 ###############################################################################
 ##### TASK 3
